@@ -1,0 +1,26 @@
+.input-text-color {
+    color: rgba(182,184,188) !important;
+}
+
+.unfocused-text-color {
+    color: rgba(128, 133, 142);
+}
+
+.background-color {
+    background-color: rgba(49,51,56);
+}
+
+.tab_bar_logo {
+    font-size: 24px;
+    color: rgba(181, 186, 193);
+}
+
+.tab_bar_logo_disabled {
+    font-size: 24px;
+    color: rgba(128, 132, 142);
+}
+
+.tab_bar_logo_active {
+    font-size: 24px;
+    color: white;
+}
