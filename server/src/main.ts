@@ -1,8 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as dotenv from 'dotenv';
+import { Server } from 'socket.io';
+
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  app.enableCors({
+    origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+    credentials: true,
+  });
+
+  app.setGlobalPrefix('api');
+
+  const server = app.getHttpServer();
+  new Server(server);
+
+  await app.listen(process.env.PORT || 4000);
 }
-bootstrap();
+
+bootstrap().catch((err) => console.error(err));
