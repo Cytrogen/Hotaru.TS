@@ -2,5 +2,5 @@ export interface User {
   id?: number;
   username: string;
   password?: string;
-  token?: string;
+  access_token?: string;
 }
