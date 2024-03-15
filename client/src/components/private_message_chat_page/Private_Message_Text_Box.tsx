@@ -1,6 +1,6 @@
 import { useState, KeyboardEvent, ChangeEvent, FormEvent } from "react";
 import { Icon } from "@iconify/react";
-import socket from "../utils/actions/authActions";
+import socket from "../utils/actions/messageActions";
 
 const PrivateMessageTextBox = () => {
   const [message, setMessage] = useState<string>("");

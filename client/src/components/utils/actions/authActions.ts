@@ -1,13 +1,7 @@
 import { Dispatch } from "redux";
-import socketIO from "socket.io-client";
 import { User } from "../interfaces";
+import { UsersService } from "./serverConnection";
 import { setCurrentUser } from "../reducers/authSlice";
-
-/**
- * Create a new socket connection.
- * The client will connect to the server at port 4000.
- */
-const socket = socketIO("http://localhost:4000");
 
 /**
  * Emit a register event to the server.
@@ -18,11 +12,15 @@ const socket = socketIO("http://localhost:4000");
  * @param navigate
  */
 const registerUser = (userData: User, navigate: (path: string) => void) => {
-  return (dispatch: Dispatch) => {
-    socket.emit("register", userData);
-    socket.on("newRegisteredUser", data => {
-      data.status === "00000" ? navigate("/login") : console.log(data.message);
-    });
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await UsersService.register(userData);
+      const data = response.data;
+      if (data.status === "00000") navigate("/login");
+      else console.log(data.message);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
@@ -36,21 +34,23 @@ const registerUser = (userData: User, navigate: (path: string) => void) => {
  * @param navigate
  */
 const loginUser = (userData: User, navigate: (path: string) => void) => {
-  return (dispatch: Dispatch) => {
-    socket.emit("login", userData);
-    socket.on("loggedInUser", data => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await UsersService.login(userData);
+      const data = response.data;
       if (data.status === "00000") {
-        const { token } = data;
-        localStorage.setItem("jwtToken", token);
-        userData["token"] = token;
-        dispatch(setCurrentUser({...userData, id: 1}));
+        const { access_token } = data;
+        localStorage.setItem("jwtToken", access_token);
+        dispatch(setCurrentUser({
+          ...userData,
+          access_token,
+        }));
         navigate("/");
-      } else {
-        console.log(data.message);
-      }
-    });
+      } else console.log(data.message);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
-export default socket;
 export { registerUser, loginUser };

@@ -5,9 +5,8 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Guard from "./components/utils/guard";
-import PrivateMessageHomepage from "./components/private_message_homepage/Private_Message_Homepage";
+// import PrivateMessageHomepage from "./components/private_message_homepage/Private_Message_Homepage";
 import PrivateMessageChatPage from "./components/private_message_chat_page/Private_Message_Chat_Page";
-import socket from "./components/utils/actions/authActions";
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
           <Route path="dummy" element={ <PrivateMessageChatPage style={{ flex: '1 1 auto' }} /> }/>
         </Route>
 
-        <Route path="/login" element={ <Login socket={ socket } /> } />
+        <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
       </Routes>
     </BrowserRouter>

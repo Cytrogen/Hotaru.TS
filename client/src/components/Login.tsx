@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Socket } from "socket.io-client";
 import { Card, CardBody, CardSubtitle, CardTitle, CardText, Form, FormGroup, Input, Button, Label } from "reactstrap";
 import "./style.css";
 import { User } from "./utils/interfaces";
@@ -8,11 +7,8 @@ import { useAppDispatch } from "./utils/store";
 import { loginUser } from './utils/actions/authActions';
 
 type LoginUser = Pick<User, "username" | "password">;
-interface LoginProps {
-  socket: Socket;
-}
 
-const Login: React.FC<LoginProps> = ({ socket }) => {
+const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [readOnly, setReadOnly] = useState<boolean>(true);
