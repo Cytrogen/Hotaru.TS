@@ -60,4 +60,12 @@ export class UsersService {
     const payload = { username: user.username, sub: user.id }
     return { access_token: this.jwtService.sign(payload) }
   }
+
+  /**
+   * Find a user by their email address.
+   * @param emailAddress
+   */
+  async findByEmail(emailAddress: string): Promise<User | null> {
+    return this.usersModel.findOne({ emailAddress }).exec()
+  }
 }
