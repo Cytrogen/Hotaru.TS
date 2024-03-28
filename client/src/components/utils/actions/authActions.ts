@@ -16,8 +16,8 @@ const registerUser = (userData: User, navigate: (path: string) => void) => {
     try {
       const response = await UsersService.register(userData);
       const data = response.data;
+      console.log(data.message);
       if (data.status === "00000") navigate("/login");
-      else console.log(data.message);
     } catch (error) {
       console.error(error);
     }
