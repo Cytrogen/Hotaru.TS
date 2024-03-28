@@ -1,23 +1,24 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
-import { Server } from 'socket.io';
+import { NestFactory } from '@nestjs/core'
+import { AppModule } from './app.module'
+import * as dotenv from 'dotenv'
+import { Server } from 'socket.io'
 
-dotenv.config();
+dotenv.config()
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
   app.enableCors({
     origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
     credentials: true,
-  });
+  })
 
-  app.setGlobalPrefix('api');
+  // Set the global prefix for all routes.
+  app.setGlobalPrefix('api')
 
-  const server = app.getHttpServer();
-  new Server(server);
+  const server = app.getHttpServer()
+  new Server(server)
 
-  await app.listen(process.env.PORT || 4000);
+  await app.listen(process.env.PORT || 4000)
 }
 
-bootstrap().catch((err) => console.error(err));
+bootstrap().catch((err) => console.error(err))

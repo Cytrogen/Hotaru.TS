@@ -1,21 +1,21 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
-import { MongooseModule } from '@nestjs/mongoose';
-import * as express from 'express';
-import * as cookieParser from 'cookie-parser';
-import * as morgan from 'morgan';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AnyExceptionFilter } from './any-exception.filter';
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
-import { SocketModule } from './socket/socket.module';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common'
+import { APP_FILTER } from '@nestjs/core'
+import { MongooseModule } from '@nestjs/mongoose'
+import * as express from 'express'
+import * as cookieParser from 'cookie-parser'
+import * as morgan from 'morgan'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { AnyExceptionFilter } from './any-exception.filter'
+import { LoggerMiddleware } from './common/middleware/logger.middleware'
+import { SocketModule } from './socket/socket.module'
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      process.env.DATABASE_URL || 'mongodb://localhost:27017/hotaru',
-    ),
+    MongooseModule.forRoot(process.env.DATABASE_URL || 'mongodb://localhost:27017/hotaru'),
     SocketModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
@@ -37,6 +37,6 @@ export class AppModule implements NestModule {
         express.static('public'),
         LoggerMiddleware,
       )
-      .forRoutes('*');
+      .forRoutes('*')
   }
 }

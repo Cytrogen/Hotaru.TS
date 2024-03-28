@@ -1,4 +1,4 @@
-import { IsString, MinLength } from 'class-validator';
+import { IsString, MinLength } from 'class-validator'
 
 /**
  * Data transfer object for login user.
@@ -6,9 +6,9 @@ import { IsString, MinLength } from 'class-validator';
 export class LoginUserDto {
   @IsString()
   @MinLength(6)
-  username: string;
+  username: string
 
   @IsString()
   @MinLength(8)
-  password: string;
+  password: string
 }
