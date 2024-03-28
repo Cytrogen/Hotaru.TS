@@ -20,7 +20,7 @@ export class UsersService {
    * Finally, it creates a new user profile and saves it to the database.
    * @param createUserDto
    */
-  async register(createUserDto: CreateUserDto): Promise<User> {
+  async register(createUserDto: RegisterUserDto): Promise<void | User> {
     const id = uuidv4()
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10)
     const newUser = new this.usersModel({
@@ -29,8 +29,14 @@ export class UsersService {
       password: hashedPassword,
     })
 
-    await newUser.save();
-    return newUser;
+    // Save the user to the database.
+    let savedUser: void | User
+    try {
+      savedUser = await newUser.save().then(() => console.log('User registered successfully'))
+    } catch (err) {
+      console.error(err)
+    }
+    return savedUser
   }
 
   /**
@@ -48,10 +54,6 @@ export class UsersService {
 
     const passwordValid = await bcrypt.compare(loginUserDto.password, user.password)
     if (!passwordValid) throw new UnauthorizedException('Invalid username or password')
-      user.password,
-    );
-    if (!passwordValid)
-      throw new UnauthorizedException('Invalid username or password');
 
     // Signing the JWT with a username and user ID.
     // This way, we can get the user's identity information from the JWT.
