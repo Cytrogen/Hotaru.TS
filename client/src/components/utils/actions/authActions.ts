@@ -39,12 +39,12 @@ const loginUser = (userData: User, navigate: (path: string) => void) => {
       const response = await UsersService.login(userData);
       const data = response.data;
       if (data.status === "00000") {
-        const { access_token } = data;
-        localStorage.setItem("jwtToken", access_token);
+        localStorage.setItem("jwtToken", data.token);
         dispatch(setCurrentUser({
           ...userData,
-          access_token,
+          access_token: data.token,
         }));
+        console.log(data);
         navigate("/");
       } else console.log(data.message);
     } catch (error) {
