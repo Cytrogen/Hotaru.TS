@@ -3,11 +3,12 @@ import {
   Controller,
   HttpStatus,
   Post,
-  Res,
   UnauthorizedException,
   UsePipes,
+  Res,
   ValidationPipe,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { RegisterUserDto, LoginUserDto } from './dto'
 import { AuthService } from './auth.service'
 import { UsersService } from '../users/users.service'
@@ -23,7 +24,7 @@ export class AuthController {
   /**
    * An API endpoint that allows users to register a new account.
    *
-   * @param registerUserDto Data transfer object for creating a new user, including the user's email address, username, password, and birth dates.
+   * @param registerUserDto Data transfer object for creating a new user, including the user's email address, username, password, and birthday.
    * @param res
    * @returns
    * @public This route is public and can be accessed without authentication.
@@ -45,7 +46,7 @@ export class AuthController {
     }
 
     try {
-      const user = this.authService.register(registerUserDto)
+      const user = await this.authService.register(registerUserDto)
 
       res.status(HttpStatus.OK).json({
         status: '00000',
@@ -53,6 +54,7 @@ export class AuthController {
         user: user,
       })
     } catch (error) {
+      console.log(error)
       res.status(HttpStatus.BAD_REQUEST).json({
         status: 'U0100',
         message: 'Failed to register user due to an unknown error',

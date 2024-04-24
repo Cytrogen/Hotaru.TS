@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedExceptio
 import { ConfigType } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 import { Reflector } from '@nestjs/core'
+import { Request } from 'express'
 import { REQUEST_USER_KEY } from '../../common'
 import jwtConfig from '../../common/config/jwt.config'
 import { IS_PUBLIC_KEY } from '../../common/decorator/public.decorator'
@@ -28,7 +29,6 @@ export class AccessTokenGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     // Check if the route is marked as public.
     const isPublic = this.reflector.get(IS_PUBLIC_KEY, context.getHandler())
-    console.log('isPublic', isPublic)
     if (isPublic) return true
 
     // Extract the JWT token from the request header.

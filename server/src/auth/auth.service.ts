@@ -30,8 +30,7 @@ export class AuthService {
    * await this.usersService.generateTokens(user)
    */
   async generateTokens(user: User) {
-    const token = await this.signToken<Partial<ActiveUserData>>(user._id, { name: user.username })
-    return { token }
+    return await this.signToken<Partial<ActiveUserData>>(user._id, { name: user.username })
   }
 
   /**
