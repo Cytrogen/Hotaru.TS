@@ -7,10 +7,10 @@ const api = axios.create({
 
 export const UsersService = {
   register: (data: User) => {
-    return api.post('/users/register', data);
+    return api.post('/auth/register', data);
   },
 
   login: (data: User) => {
-    return api.post('/users/login', data);
+    return api.post('/auth/login', data);
   },
 }
