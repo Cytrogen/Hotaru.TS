@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
 
-// Merges Mongoose's Document type with User type.
-export type UserDocument = User & Document
-
-// @Schema() decorator marks this class as Mongoose schema.
+/**
+ * User schema.
+ *
+ * Schema is a class that defines the structure of the document stored in the collection.
+ */
 @Schema()
-export class User {
+export class User extends Document {
   // @Prop() decorator marks the class property as a schema property.
   // This property is required and unique.
   @Prop({ required: true, unique: true })
