@@ -1,4 +1,4 @@
-import imgURL from '../static/avatar.png';
+import imgURL from '../../static/avatar.png';
 
 const PrivateMessageProfilePanel = () => {
   return (

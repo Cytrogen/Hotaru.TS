@@ -2,9 +2,9 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardSubtitle, CardTitle, CardText, Form, FormGroup, Input, Button, Label } from "reactstrap";
 import "./style.css";
-import { User } from "./utils/interfaces";
-import { useAppDispatch } from "./utils/store";
-import { loginUser } from './utils/actions/authActions';
+import { User } from "../types/interfaces";
+import { useAppDispatch } from "../redux/store";
+import { loginUser } from '../redux/actions/authActions';
 
 type LoginUser = Pick<User, "username" | "password">;
 

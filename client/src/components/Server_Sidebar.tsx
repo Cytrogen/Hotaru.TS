@@ -1,5 +1,5 @@
 import React from 'react';
-import imgURL from './static/Hotaru.png';
+import imgURL from '../static/Hotaru.png';
 
 /**
  * ServerSidebar component.

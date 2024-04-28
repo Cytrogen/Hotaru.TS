@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import "../style.css";
-import imgURL from "../static/avatar.png";
+import imgURL from "../../static/avatar.png";
 
 const ActiveFriendsList = () => {
   const navigate = useNavigate();

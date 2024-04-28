@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
-import { User } from "../utils/interfaces";
-import dummyAvatarURL from "../static/avatar.png";
-import userDefaultAvatarURL from "../static/Hotaru_default_avatar.png";
+import { User } from "../../types/interfaces";
+import dummyAvatarURL from "../../static/avatar.png";
+import userDefaultAvatarURL from "../../static/Hotaru_default_avatar.png";
 
 type UserProfile = Pick<User, "username">;
 
@@ -78,15 +78,17 @@ const FriendsListSidebar: React.FC = () => {
             className="d-flex flex-column flex-grow-1"
             style={{ paddingBottom: '4px', paddingLeft: '8px', paddingTop: '4px', marginRight: '4px', minHeight: '0' }}
           >
-            <span
-              className="overflow-hidden"
-              style={{
-                fontSize: '14px', fontWeight: '400', lineHeight: '1.2',
-                whiteSpace: 'nowrap', textOverflow: 'ellipsis', color: 'rgba(242, 243, 245)'
-              }}
-            >
-              { currentUser.username }
-            </span>
+            {currentUser && (
+              <span
+                className="overflow-hidden"
+                style={{
+                  fontSize: '14px', fontWeight: '400', lineHeight: '1.2',
+                  whiteSpace: 'nowrap', textOverflow: 'ellipsis', color: 'rgba(242, 243, 245)'
+                }}
+              >
+                { currentUser.username }
+              </span>
+            )}
             <span
               className="overflow-hidden"
               style={{

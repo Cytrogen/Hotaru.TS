@@ -5,11 +5,7 @@ import ActiveFriendsList from "./Active_Friends_List";
 import ActiveEventsSection from "./Active_Events_Section";
 import FriendsListSideBar from "../private_message_common/Friends_List_Sidebar";
 
-interface PrivateMessageHomepageProps {
-  style: React.CSSProperties;
-}
-
-const PrivateMessageHomepage: React.FC<PrivateMessageHomepageProps> = ({ style }) => {
+const PrivateMessageHomepage = () => {
   return (
     <>
       <FriendsListSideBar />

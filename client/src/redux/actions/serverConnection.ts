@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { User } from "../../types/interfaces";
+import axios from 'axios'
+import { User } from '../../types/interfaces'
 
 const api = axios.create({
   baseURL: 'http://localhost:4000/api',
@@ -13,7 +13,6 @@ export const UsersService = {
   login: (data: User) => {
     return api.post('/auth/login', data);
   },
-
 
   getUserByUsername: (username: string) => {
     return api.get(`/users/${username}`);

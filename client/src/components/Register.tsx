@@ -2,9 +2,9 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText, Container, Row, Col, Form, FormGroup, Input, Button, Label } from "reactstrap";
 import "./style.css";
-import { User } from "./utils/interfaces";
-import { useAppDispatch } from "./utils/store";
-import { registerUser } from "./utils/actions/authActions";
+import { User } from "../types/interfaces";
+import { useAppDispatch } from "../redux/store";
+import { registerUser } from "../redux/actions/authActions";
 
 type RegisterUser = User & {
   emailAddress: string;
