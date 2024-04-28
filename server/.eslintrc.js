@@ -17,7 +17,7 @@ module.exports = {
   },
   ignorePatterns: [
     '.eslintrc.js',
-    'client/'
+    'client/*'
   ],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
