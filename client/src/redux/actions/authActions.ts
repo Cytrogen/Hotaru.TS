@@ -1,7 +1,7 @@
-import { Dispatch } from "redux";
-import { User } from "../../types/interfaces";
-import { UsersService } from "./serverConnection";
-import { setCurrentUser } from "../reducers/authSlice";
+import { Dispatch } from 'redux'
+import { User } from '../../types/interfaces'
+import { UsersService } from './serverConnection'
+import { setCurrentUser } from '../reducers/authSlice'
 
 /**
  * Emit a register event to the server.
@@ -14,12 +14,12 @@ import { setCurrentUser } from "../reducers/authSlice";
 const registerUser = (userData: User, navigate: (path: string) => void) => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await UsersService.register(userData);
-      const data = response.data;
-      console.log(data.message);
-      if (data.status === "00000") navigate("/login");
+      const response = await UsersService.register(userData)
+      const data = response.data
+      console.log(data.message)
+      if (data.status === '00000') navigate('/login')
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 }
@@ -36,23 +36,25 @@ const registerUser = (userData: User, navigate: (path: string) => void) => {
 const loginUser = (userData: User, navigate: (path: string) => void) => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await UsersService.login(userData);
-      const data = response.data;
-      if (data.status === "00000") {
-        localStorage.setItem("jwtToken", data.token);
-        localStorage.setItem("userId", data.userId);
-        dispatch(setCurrentUser({
-          ...userData,
-          access_token: data.token,
-          id: data.userId,
-        }));
-        console.log(data);
-        navigate("/");
-      } else console.log(data.message);
+      const response = await UsersService.login(userData)
+      const data = response.data
+      if (data.status === '00000') {
+        localStorage.setItem('jwtToken', data.token)
+        localStorage.setItem('userId', data.userId)
+        dispatch(
+          setCurrentUser({
+            ...userData,
+            access_token: data.token,
+            id: data.userId,
+          }),
+        )
+        console.log(data)
+        navigate('/')
+      } else console.log(data.message)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 }
 
-export { registerUser, loginUser };
+export { registerUser, loginUser }

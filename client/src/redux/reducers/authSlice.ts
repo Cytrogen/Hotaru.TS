@@ -1,17 +1,17 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../types/interfaces';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { User } from '../../types/interfaces'
 
 interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  error: string | null;
+  isAuthenticated: boolean
+  user: User | null
+  error: string | null
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   error: null,
-};
+}
 
 /**
  * The auth slice contains the current user, the isAuthenticated flag, and the error message.
@@ -26,8 +26,8 @@ export const authSlice = createSlice({
      * @param action
      */
     setCurrentUser: (state, action: PayloadAction<User>) => {
-      state.isAuthenticated = true;
-      state.user = action.payload;
+      state.isAuthenticated = true
+      state.user = action.payload
     },
     /**
      * Set the error message.
@@ -35,10 +35,10 @@ export const authSlice = createSlice({
      * @param action
      */
     setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
+      state.error = action.payload
     },
   },
-});
+})
 
-export const { setCurrentUser, setError } = authSlice.actions;
-export default authSlice.reducer;
+export const { setCurrentUser, setError } = authSlice.actions
+export default authSlice.reducer

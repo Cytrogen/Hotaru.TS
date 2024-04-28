@@ -13,18 +13,18 @@ import { useEffect, useState } from 'react'
  * - isAuthChecked: A boolean value indicating if the authentication check is complete.
  */
 export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthChecked, setIsAuthChecked] = useState(false)
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
+    const token = localStorage.getItem('jwtToken')
     if (token) {
-      setIsAuthenticated(true);
+      setIsAuthenticated(true)
     } else {
-      setIsAuthenticated(false);
+      setIsAuthenticated(false)
     }
-    setIsAuthChecked(true);
-  }, []);
+    setIsAuthChecked(true)
+  }, [])
 
-  return { isAuthenticated, isAuthChecked };
+  return { isAuthenticated, isAuthChecked }
 }
