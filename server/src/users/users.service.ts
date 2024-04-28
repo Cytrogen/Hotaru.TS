@@ -21,6 +21,15 @@ export class UsersService {
   }
 
   /**
+   * Find a user by their username.
+   *
+   * @param username
+   */
+  async findByUsername(username: string): Promise<User | null> {
+    return this.usersModel.findOne({ username }).exec()
+  }
+
+  /**
    * Find all users.
    *
    * @returns An array of all user profiles.
