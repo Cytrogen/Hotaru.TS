@@ -80,11 +80,13 @@ export class AuthController {
   async login(@Body() loginUserDto: LoginUserDto, @Res() res: Response) {
     try {
       const resultToken = await this.authService.login(loginUserDto)
+      const user = await this.usersService.findByUsername(loginUserDto.username)
 
       res.status(HttpStatus.OK).json({
         status: '00000',
         message: 'User logged in successfully',
         token: resultToken,
+        userId: user._id,
       })
     } catch (error) {
       console.error(error)
