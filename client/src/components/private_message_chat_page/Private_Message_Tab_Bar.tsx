@@ -1,14 +1,20 @@
 import { Icon } from "@iconify/react";
 import "../style.css";
-import imgURL from "../static/avatar.png";
+import imgURL from "../../static/avatar.png";
+import React from 'react'
 
-const PrivateMessageTabBar = () => {
+interface PrivateMessageTabBarProps {
+  receiverUsername: string;
+  setReceiverUsername: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const PrivateMessageTabBar: React.FC<PrivateMessageTabBarProps> = ({ receiverUsername, setReceiverUsername }) => {
   return (
     <>
       <div className="d-flex flex-row align-items-stretch align-items-center justify-content-between w-100" style={{ minHeight: '32px' }}>
         <div className="d-flex flex-row align-items-center">
           <img src={ imgURL } className="ms-3 me-3 rounded-circle" style={{ width: '24px', height: '24px' }} alt=""></img>
-          <span className="me-3 text-white fw-bolder">Dummy</span>
+          <span className="me-3 text-white fw-bolder">{ receiverUsername }</span>
         </div>
         <div className="d-flex flex-row align-items-center gap-3 me-2">
           <Icon icon="material-symbols:phone-in-talk-watchface-indicator" className="tab_bar_logo" />

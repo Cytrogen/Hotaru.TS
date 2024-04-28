@@ -1,21 +1,12 @@
-// import { useState } from "react";
-import imgURL from "../static/avatar.png";
+import imgURL from "../../static/avatar.png";
 import PrivateMessageTextBox from "./Private_Message_Text_Box";
-// import socket from "../utils/actions/authActions";
+import React from 'react'
 
-const PrivateMessageMessagesWrapper = () => {
-  // TODO: finish message sending and receiving functionality
-  // const [messages, setMessages] = useState([]);
-  //
-  // const sendMessages = event => {
-  //     if(event.key === "Enter") {
-  //         socket.emit("privateMessageSent", event.target.value);
-  //         event.target.value = "";
-  //     }
-  // }
-  //
-  // socket.on("privateMessageReceived", msg => setMessages(prev => [...prev, msg]));
+interface PrivateMessageMessagesWrapperProps {
+  receiverUsername: string;
+}
 
+const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps> = ({ receiverUsername }) => {
   return (
     <div className="d-flex flex-column w-100 h-100">
       <div style={{ flex: 1 }}>
@@ -94,7 +85,7 @@ const PrivateMessageMessagesWrapper = () => {
         </ol>
       </div>
       <div style={{ marginTop: 'auto' }}>
-        <PrivateMessageTextBox />
+        <PrivateMessageTextBox receiverUsername={ receiverUsername }/>
       </div>
     </div>
   );

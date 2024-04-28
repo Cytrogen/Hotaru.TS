@@ -1,8 +1,13 @@
-import { useState, KeyboardEvent, ChangeEvent, FormEvent } from "react";
+import React, { useState, KeyboardEvent, ChangeEvent, FormEvent } from "react";
 import { Icon } from "@iconify/react";
-import socket from "../utils/actions/messageActions";
+import socket from "../../redux/actions/messageActions";
+import { UsersService } from '../../redux/actions/serverConnection'
 
-const PrivateMessageTextBox = () => {
+interface PrivateMessageTextBoxProps {
+  receiverUsername: string;
+}
+
+const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverUsername }) => {
   const [message, setMessage] = useState<string>("");
 
   /**
@@ -31,20 +36,20 @@ const PrivateMessageTextBox = () => {
    * Handle the form submit event.
    * Send the privateMessageSent event to the server.
    */
-  const handleSendMessage = (e?: FormEvent) => {
+  const handleSendMessage = async (e?: FormEvent) => {
     // Prevent the default form submission behavior
     e && e.preventDefault();
 
-    // TODO: get the username from the current user to send the message.
-    // if (message.trim() && localStorage.getItem("username")) {
+    const senderId = localStorage.getItem("userId");
+    const response = await UsersService.getUserByUsername(receiverUsername);
+    const receiver = response.data;
+
     socket.emit("privateMessageSent", {
-      id: `${ socket.id }${ Math.random() }`,
-      socketID: socket.id,
-      // TODO: send the username to the server.
-      // name: localStorage.getItem("username"),
+      id: `${socket.id}${Math.random()}`,
+      senderId: senderId,
+      receiverId: receiver._id,
       text: message
     });
-    // }
     setMessage("");
   }
 
