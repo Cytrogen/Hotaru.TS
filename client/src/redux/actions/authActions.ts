@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { User } from '../../types/interfaces'
-import { UsersService } from './serverConnection'
+import { AuthService, UserService } from './serverConnection'
 import { setCurrentUser } from '../reducers/authSlice'
 
 /**
@@ -11,10 +11,10 @@ import { setCurrentUser } from '../reducers/authSlice'
  * @param userData
  * @param navigate
  */
-const registerUser = (userData: User, navigate: (path: string) => void) => {
-  return async (dispatch: Dispatch) => {
+export const registerUser = (userData: User, navigate: (path: string) => void) => {
+  return async () => {
     try {
-      const response = await UsersService.register(userData)
+      const response = await AuthService.register(userData)
       const data = response.data
       console.log(data.message)
       if (data.status === '00000') navigate('/login')
@@ -33,10 +33,10 @@ const registerUser = (userData: User, navigate: (path: string) => void) => {
  * @param userData
  * @param navigate
  */
-const loginUser = (userData: User, navigate: (path: string) => void) => {
+export const loginUser = (userData: User, navigate: (path: string) => void) => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await UsersService.login(userData)
+      const response = await AuthService.login(userData)
       const data = response.data
       if (data.status === '00000') {
         localStorage.setItem('jwtToken', data.token)
@@ -57,4 +57,26 @@ const loginUser = (userData: User, navigate: (path: string) => void) => {
   }
 }
 
-export { registerUser, loginUser }
+/**
+ * Get the user details by username.
+ * Dispatch the setCurrentUser action with the user data.
+ * - id
+ * - username
+ * - emailAddress
+ * - birthday
+ * @param userId
+ */
+export const setUserDetails = (userId: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await UserService.getUserByUsername(userId)
+      if (response.status === 200) {
+        dispatch(setCurrentUser(response.data))
+      } else {
+        console.log(response.data.message)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}

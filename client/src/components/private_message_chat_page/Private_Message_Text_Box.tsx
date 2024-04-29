@@ -1,7 +1,7 @@
 import React, { useState, KeyboardEvent, ChangeEvent, FormEvent } from 'react'
 import { Icon } from '@iconify/react'
 import socket from '../../redux/actions/messageActions'
-import { UsersService } from '../../redux/actions/serverConnection'
+import { UserService } from '../../redux/actions/serverConnection'
 
 interface PrivateMessageTextBoxProps {
   receiverUsername: string
@@ -19,7 +19,7 @@ const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverU
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      handleSendMessage()
+      handleSendMessage().then((r) => console.log(r))
     }
   }
 
@@ -41,7 +41,7 @@ const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverU
     e && e.preventDefault()
 
     const senderId = localStorage.getItem('userId')
-    const response = await UsersService.getUserByUsername(receiverUsername)
+    const response = await UserService.getUserByUsername(receiverUsername)
     const receiver = response.data
 
     socket.emit('privateMessageSent', {

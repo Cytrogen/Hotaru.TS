@@ -6,6 +6,7 @@ import PrivateMessageProfilePanel from './Private_Message_Profile_Panel'
 
 const PrivateMessageChatPage = () => {
   const [receiverName, setReceiverName] = useState<string>('Dummy')
+
   return (
     <>
       <FriendsListSideBar />

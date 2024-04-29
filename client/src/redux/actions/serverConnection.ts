@@ -5,7 +5,7 @@ const api = axios.create({
   baseURL: 'http://localhost:4000/api',
 })
 
-export const UsersService = {
+export const AuthService = {
   register: (data: User) => {
     return api.post('/auth/register', data)
   },
@@ -13,7 +13,9 @@ export const UsersService = {
   login: (data: User) => {
     return api.post('/auth/login', data)
   },
+}
 
+export const UserService = {
   getUserByUsername: (username: string) => {
     return api.get(`/users/${username}`)
   },
