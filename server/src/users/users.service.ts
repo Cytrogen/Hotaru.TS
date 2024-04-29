@@ -26,7 +26,7 @@ export class UsersService {
    * @param username
    */
   async findByUsername(username: string): Promise<User | null> {
-    return this.usersModel.findOne({ username }).exec()
+    return this.usersModel.findOne({ username }).select('-password').exec()
   }
 
   /**
