@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useSelector } from 'react-redux'
 import { User } from '../../types/interfaces'
 import dummyAvatarURL from '../../static/avatar.png'
+import { setUserDetails } from '../../redux/actions/authActions'
 import userDefaultAvatarURL from '../../static/Hotaru_default_avatar.png'
 
 type UserProfile = Pick<User, 'username'>
@@ -10,6 +11,14 @@ type UserProfile = Pick<User, 'username'>
 const FriendsListSidebar: React.FC = () => {
   const [hoverStates, setHoverStates] = useState<Record<string, boolean>>({})
   const currentUser = useSelector((state: { auth: { user: UserProfile } }) => state.auth.user)
+  const userId = localStorage.getItem('userId')
+
+  useEffect(() => {
+    console.log('friends list sidebar', userId)
+    if (userId && !currentUser) {
+      setUserDetails(userId)
+    }
+  }, [userId, currentUser])
 
   /**
    * Update the hover state of the item.
