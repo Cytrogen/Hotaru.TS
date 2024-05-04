@@ -22,3 +22,7 @@ After the project was migrated from Express to NestJS, I wrote a migration guide
 > Yep, this post is also written in Simplified Chinese.
 
 - [React + NestJS + Socket.io项目实践【1】：从Express迁移](https://cytrogen.icu/posts/3b97)
+
+正常的博客更新：
+
+- [React + NestJS + Socket.io项目实践【2】：JWT验证](https://cytrogen.icu/posts/40b4)
