@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-import { Message, MessageDocument } from './messages.schema'
+import { Message } from './message.schema'
 import { CreateMessageDto } from './dto/create-message.dto'
 import { SocketService } from '../socket/socket.service'
 
 @Injectable()
 export class MessagesService {
   constructor(
-    @InjectModel(Message.name) private messageModel: Model<MessageDocument>,
+    @InjectModel(Message.name) private messageModel: Model<Message>,
     private socketService: SocketService,
   ) {}
 
