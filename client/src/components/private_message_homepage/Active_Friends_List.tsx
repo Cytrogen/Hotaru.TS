@@ -55,6 +55,7 @@ const ActiveFriendsList = () => {
                   </span>
                   <span className="py-auto" style={{ color: 'rgba(172, 176, 183)', fontSize: '12px' }}>
                     {/* TODO: Fix ESLint: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.(react/no-unescaped-entities) */}
+                    {/* eslint-disable-next-line react/no-unescaped-entities */}
                     I'm a dummy, click me, talk to me.
                   </span>
                 </span>

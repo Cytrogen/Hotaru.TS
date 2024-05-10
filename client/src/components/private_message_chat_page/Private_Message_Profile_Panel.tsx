@@ -40,6 +40,7 @@ const PrivateMessageProfilePanel = () => {
           <p className="text-wrap pt-1" style={{ fontSize: '14px' }}>
             {/* TODO: fix ESLint warning: */}
             {/* TODO: ESLint: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.(react/no-unescaped-entities) */}
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             I'm a dummy, click me, talk to me.
           </p>
         </div>

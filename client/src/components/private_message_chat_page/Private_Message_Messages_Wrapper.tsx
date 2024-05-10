@@ -94,6 +94,7 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
                   color: 'rgba(219, 222, 225)',
                 }}>
                 {/* TODO: Fix ESLint: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.(react/no-unescaped-entities) */}
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
                 <span>I'm a dummy, click to talk to me.</span>
               </div>
             </div>
