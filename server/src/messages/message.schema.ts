@@ -4,10 +4,10 @@ import { Document } from 'mongoose'
 @Schema()
 export class Message extends Document {
   @Prop({ required: true })
-  sender: string
+  senderId: string
 
   @Prop({ required: true })
-  receiver: string
+  receiverId: string
 
   @Prop({ required: true })
   text: string

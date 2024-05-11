@@ -15,6 +15,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware'
 import { SocketModule } from './socket/socket.module'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
+import { MessagesModule } from './messages/messages.module'
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AuthModule } from './auth/auth.module'
     SocketModule,
     UsersModule,
     AuthModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [

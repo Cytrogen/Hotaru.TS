@@ -20,3 +20,9 @@ export const UserService = {
     return api.get(`/users/${username}`)
   },
 }
+
+export const MessageService = {
+  getMessagesByUserId: (token: string | null, receiverId: string) => {
+    return api.get(`/messages/${receiverId}`, { headers: { Authorization: `Bearer ${token}` } })
+  },
+}
