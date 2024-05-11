@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
-import { JwtService } from '@nestjs/jwt'
+import { JwtService, TokenExpiredError } from '@nestjs/jwt'
 import { Reflector } from '@nestjs/core'
 import { Request } from 'express'
 import { REQUEST_USER_KEY } from '../../common'
@@ -34,11 +34,17 @@ export class AccessTokenGuard implements CanActivate {
     // Extract the JWT token from the request header.
     const request = context.switchToHttp().getRequest()
     const token = this.extractTokenFromHeader(request)
-    if (!token) throw new UnauthorizedException()
-
+    if (!token) return false
+    console.log('token', token)
     try {
       request[REQUEST_USER_KEY] = await this.jwtService.verifyAsync(token, this.jwtConfiguration)
     } catch (error) {
+      console.log(error)
+
+      if (error instanceof TokenExpiredError) {
+        throw new UnauthorizedException('Your session has expired. Please log in again.')
+      }
+
       throw new UnauthorizedException()
     }
 
