@@ -58,7 +58,7 @@ export const loginUser = (userData: User, navigate: (path: string) => void) => {
 }
 
 /**
- * Get the user details by username.
+ * Get the user details by user ID.
  * Dispatch the setCurrentUser action with the user data.
  * - id
  * - username
@@ -69,7 +69,8 @@ export const loginUser = (userData: User, navigate: (path: string) => void) => {
 export const setUserDetails = (userId: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await UserService.getUserByUsername(userId)
+      const token = localStorage.getItem('jwtToken')
+      const response = await UserService.getUserByUserId(token, userId)
       if (response.status === 200) {
         dispatch(setCurrentUser(response.data))
       } else {
