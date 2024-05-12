@@ -12,9 +12,13 @@ export class UsersController {
    *
    * @param username
    */
-  @Public()
-  @Get(':username')
-  async findOne(@Param('username') username: string) {
+  @Get('username/:username')
+  async findByUsername(@Param('username') username: string) {
     return this.usersService.findByUsername(username)
+  }
+
+  @Get('userid/:userId')
+  async findByUserId(@Param('userId') userId: string) {
+    return this.usersService.findByUserId(userId)
   }
 }
