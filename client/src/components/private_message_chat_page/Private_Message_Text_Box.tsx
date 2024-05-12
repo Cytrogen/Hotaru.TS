@@ -57,7 +57,7 @@ const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverU
     <form className="px-2 m-3" onSubmit={handleSendMessage}>
       <div
         className="w-100 p-0 m-0"
-        style={{ marginBottom: '24px', backgroundColor: 'rgba(56, 58, 64)', textIndent: '0', borderRadius: '8px' }}>
+        style={{ backgroundColor: 'rgba(56, 58, 64)', textIndent: '0', borderRadius: '8px' }}>
         <div
           className="overflow-x-hidden overflow-y-scroll"
           style={{ borderRadius: '8px', backfaceVisibility: 'hidden', scrollbarWidth: 'none' }}>
