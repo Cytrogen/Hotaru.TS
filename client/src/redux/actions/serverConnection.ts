@@ -5,6 +5,22 @@ const api = axios.create({
   baseURL: 'http://localhost:4000/api',
 })
 
+api.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    if (error.response) {
+      if (error.response.status === 401 && error.response.statusText === 'Unauthorized') {
+        localStorage.removeItem('jwtToken')
+        window.location.reload()
+      }
+    }
+
+    return Promise.reject(error)
+  },
+)
+
 export const AuthService = {
   register: (data: User) => {
     return api.post('/auth/register', data)
@@ -16,13 +32,17 @@ export const AuthService = {
 }
 
 export const UserService = {
-  getUserByUsername: (username: string) => {
-    return api.get(`/users/${username}`)
+  getUserByUsername: (token: string | null, username: string) => {
+    return api.get(`/users/username/${username}`, { headers: { Authorization: `Bearer ${token}` } })
+  },
+
+  getUserByUserId: (token: string | null, userId: string) => {
+    return api.get(`/users/userid/${userId}`, { headers: { Authorization: `Bearer ${token}` } })
   },
 }
 
 export const MessageService = {
-  getMessagesByUserId: (token: string | null, receiverId: string) => {
-    return api.get(`/messages/${receiverId}`, { headers: { Authorization: `Bearer ${token}` } })
+  getMessagesByUserId: (token: string | null, senderId: string | null, receiverId: string) => {
+    return api.get(`/messages/${senderId}/${receiverId}`, { headers: { Authorization: `Bearer ${token}` } })
   },
 }
