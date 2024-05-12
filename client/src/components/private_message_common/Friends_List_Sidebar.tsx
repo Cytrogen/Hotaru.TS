@@ -14,7 +14,7 @@ const FriendsListSidebar: React.FC = () => {
   const userId = localStorage.getItem('userId')
 
   useEffect(() => {
-    console.log('friends list sidebar', userId)
+    // console.log('friends list sidebar', userId)
     if (userId && !currentUser) {
       setUserDetails(userId)
     }
