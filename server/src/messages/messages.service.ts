@@ -14,13 +14,21 @@ export class MessagesService {
    * @param senderId
    * @param receiverId
    */
-  async getMessages(senderId: string, receiverId: string): Promise<Message[]> {
+  async getMessages(senderId: string, receiverId: string) {
     return this.messageModel
       .find({
         senderId: senderId,
         receiverId: receiverId,
       })
       .exec()
+      .then((messages) => {
+        console.log('Messages found:', messages)
+        return messages
+      })
+      .catch((error: any) => {
+        console.log('Error finding messages:', error)
+        throw error
+      })
   }
 
   /**
