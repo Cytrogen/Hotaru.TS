@@ -8,4 +8,6 @@ const socket = socketIO('http://localhost:3001', {
   withCredentials: true,
 })
 
+socket.emit('connectUser', localStorage.getItem('userId'))
+
 export default socket
