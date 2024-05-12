@@ -1,5 +1,5 @@
 export interface User {
-  id?: number
+  id?: string
   emailAddress?: string
   username: string
   password?: string
@@ -7,9 +7,9 @@ export interface User {
 }
 
 export interface Message {
-  id?: number
-  senderId: number
-  receiverId: number
-  content: string
+  id?: string
+  senderId: string
+  receiverId: string
+  text: string
   timestamp: string
 }
