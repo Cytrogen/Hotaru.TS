@@ -1,16 +1,17 @@
 import { Controller, Get, Param, Request } from '@nestjs/common'
 import { Request as ExpressRequest } from 'express'
 import { MessagesService } from './messages.service'
-import { REQUEST_USER_KEY } from '../common'
 
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
-  @Get(':receiverId')
-  async getMessages(@Request() req: ExpressRequest, @Param('receiverId') receiverId: string) {
-    const senderId = req[REQUEST_USER_KEY].id
-    console.log('senderId: ', senderId)
+  @Get(':senderId/:receiverId')
+  async getMessages(
+    @Request() req: ExpressRequest,
+    @Param('senderId') senderId: string,
+    @Param('receiverId') receiverId: string,
+  ) {
     return await this.messagesService.getMessages(senderId, receiverId)
   }
 }
