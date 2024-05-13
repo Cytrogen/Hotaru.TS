@@ -19,6 +19,8 @@ type UserProfile = Pick<User, 'username' | '_id'>
 const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps> = ({ receiverUsername }) => {
   const [messages, setMessages] = useState<Message[]>([])
   const context = useContext(MessageContext)
+  const endOfMessagesRef = useRef<null | HTMLSpanElement>(null)
+  const prevMessagesLength = useRef<number>(0)
   const currentUser = useSelector((state: { auth: { user: UserProfile } }) => state.auth.user)
   if (!context) {
     throw new Error('MessageContext is undefined')
@@ -51,6 +53,11 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
   }, [newMessage])
 
   useEffect(() => {
+    if (endOfMessagesRef.current && messages.length > prevMessagesLength.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    }
+    prevMessagesLength.current = messages.length
+  }, [messages])
 
   return (
     <div className="d-flex flex-column w-100 h-100">
@@ -146,7 +153,7 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
               </div>
             </li>
           ))}
-        </ol>
+        <span ref={endOfMessagesRef} />
       </div>
       <div style={{ marginTop: 'auto' }}>
         <PrivateMessageTextBox receiverUsername={receiverUsername} />
