@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import imgURL from '../../static/avatar.png'
 import PrivateMessageTextBox from './Private_Message_Text_Box'
 import { UserService, MessageService } from '../../redux/actions/serverConnection'
+import { formatDate } from '../../utils/time'
 
 interface PrivateMessageMessagesWrapperProps {
   receiverUsername: string
@@ -102,7 +103,7 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
                         fontWeight: '500',
                         color: 'rgba(148, 154, 158)',
                       }}>
-                      <time dateTime="2024-02-03T01:59:00.997Z">2024/02/03 01:59</time>
+                    <time dateTime={message.timestamp.toString()}>{formatDate(message.timestamp)}</time>
                     </span>
                   </h3>
                 </div>
