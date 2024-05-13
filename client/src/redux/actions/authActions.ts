@@ -45,10 +45,10 @@ export const loginUser = (userData: User, navigate: (path: string) => void) => {
           setCurrentUser({
             ...userData,
             access_token: data.token,
-            id: data.userId,
+            _id: data.userId,
           }),
         )
-        console.log(data)
+        // console.log(data)
         navigate('/')
       } else console.log(data.message)
     } catch (error) {
