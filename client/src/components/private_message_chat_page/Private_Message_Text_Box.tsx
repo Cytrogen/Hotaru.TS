@@ -1,14 +1,22 @@
-import React, { useState, KeyboardEvent, ChangeEvent, FormEvent } from 'react'
+import React, { useState, useContext, KeyboardEvent, ChangeEvent, FormEvent } from 'react'
 import { Icon } from '@iconify/react'
+import { MessageContext } from '../context/Message_Context'
+import { Message } from '../../types/interfaces'
 import socket from '../../redux/actions/messageActions'
 import { UserService } from '../../redux/actions/serverConnection'
 
 interface PrivateMessageTextBoxProps {
   receiverUsername: string
+  addMessage: (message: Message) => void
 }
 
 const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverUsername }) => {
   const [message, setMessage] = useState<string>('')
+  const context = useContext(MessageContext)
+  if (!context) {
+    throw new Error('MessageContext is undefined')
+  }
+  const { addMessage } = context
 
   /**
    * Handle the key down event for the message input.
@@ -50,6 +58,7 @@ const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverU
       receiverId: receiver._id,
       text: message,
     })
+    addMessage(privateMessage)
     setMessage('')
   }
 

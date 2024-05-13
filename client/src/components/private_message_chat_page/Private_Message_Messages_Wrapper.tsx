@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
+import { MessageContext } from '../context/Message_Context'
 import imgURL from '../../static/avatar.png'
 import PrivateMessageTextBox from './Private_Message_Text_Box'
 import { UserService, MessageService } from '../../redux/actions/serverConnection'
+import { Message, User } from '../../types/interfaces'
 import { formatDate } from '../../utils/time'
 
 interface PrivateMessageMessagesWrapperProps {
@@ -15,6 +17,11 @@ interface Message {
 
 const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps> = ({ receiverUsername }) => {
   const [messages, setMessages] = useState<Message[]>([])
+  const context = useContext(MessageContext)
+  if (!context) {
+    throw new Error('MessageContext is undefined')
+  }
+  const { newMessage } = context
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -33,6 +40,13 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
 
     fetchMessages().then((r) => console.log(r))
   }, [receiverUsername])
+  useEffect(() => {
+    if (newMessage) {
+      setMessages((prevMessages) => [...prevMessages, newMessage])
+    }
+  }, [newMessage])
+
+  useEffect(() => {
 
   return (
     <div className="d-flex flex-column w-100 h-100">
@@ -123,7 +137,7 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
                   }}>
                   {/* TODO: Fix ESLint: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.(react/no-unescaped-entities) */}
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
-                  <span>{message.content}</span>
+                <span>{message.text}</span>
                 </div>
               </div>
             </li>
