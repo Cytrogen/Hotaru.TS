@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import { MessageContext } from '../context/Message_Context'
 import imgURL from '../../static/avatar.png'
 import PrivateMessageTextBox from './Private_Message_Text_Box'
@@ -10,7 +11,7 @@ interface PrivateMessageMessagesWrapperProps {
   receiverUsername: string
 }
 
-interface Message {
+type UserProfile = Pick<User, 'username' | '_id'>
   id: string
   content: string
 }
@@ -18,6 +19,7 @@ interface Message {
 const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps> = ({ receiverUsername }) => {
   const [messages, setMessages] = useState<Message[]>([])
   const context = useContext(MessageContext)
+  const currentUser = useSelector((state: { auth: { user: UserProfile } }) => state.auth.user)
   if (!context) {
     throw new Error('MessageContext is undefined')
   }
@@ -26,20 +28,22 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
   useEffect(() => {
     const fetchMessages = async () => {
       const jwtToken = localStorage.getItem('jwtToken')
-      const response = await UserService.getUserByUsername(receiverUsername)
+      const senderId = localStorage.getItem('userId')
+      const response = await UserService.getUserByUsername(jwtToken, receiverUsername)
       const receiver = response.data
 
       try {
-        const res = await MessageService.getMessagesByUserId(jwtToken, receiver._id)
+        const res = await MessageService.getMessagesByUserId(jwtToken, senderId, receiver._id)
         setMessages(res.data)
-        console.log(res)
+        return res.data
       } catch (err) {
         console.error(err)
       }
     }
 
-    fetchMessages().then((r) => console.log(r))
+    fetchMessages().then((r) => console.log('Messages fetched:', r))
   }, [receiverUsername])
+
   useEffect(() => {
     if (newMessage) {
       setMessages((prevMessages) => [...prevMessages, newMessage])
@@ -102,7 +106,7 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
                         verticalAlign: 'baseline',
                         outline: 'none',
                       }}>
-                      Dummy
+                    {message.senderId === currentUser._id ? currentUser.username : receiverUsername}
                     </span>
                     <span
                       className="ms-1"
