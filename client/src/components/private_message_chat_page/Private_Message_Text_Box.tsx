@@ -48,16 +48,23 @@ const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverU
     // Prevent the default form submission behavior
     e && e.preventDefault()
 
+    const jwtToken = localStorage.getItem('jwtToken')
     const senderId = localStorage.getItem('userId')
-    const response = await UserService.getUserByUsername(receiverUsername)
+    if (!senderId) {
+      throw new Error('User ID not found in local storage')
+    }
+    const response = await UserService.getUserByUsername(jwtToken, receiverUsername)
     const receiver = response.data
 
-    socket.emit('privateMessageSent', {
+    const privateMessage = {
       id: `${socket.id}${Math.random()}`,
       senderId: senderId,
       receiverId: receiver._id,
       text: message,
-    })
+      timestamp: new Date().toISOString(),
+    }
+
+    socket.emit('privateMessageSent', privateMessage)
     addMessage(privateMessage)
     setMessage('')
   }
