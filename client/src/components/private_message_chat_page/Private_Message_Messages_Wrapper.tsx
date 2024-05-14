@@ -19,7 +19,7 @@ const PrivateMessageMessagesWrapper: React.FC<PrivateMessageMessagesWrapperProps
   const prevMessagesLength = useRef<number>(0)
   const currentUser = useSelector((state: { auth: { user: UserProfile } }) => state.auth.user)
 
-  console.log('currentUser: ', currentUser)
+  // console.log('currentUser: ', currentUser)
 
   if (!context) {
     throw new Error('MessageContext is undefined')

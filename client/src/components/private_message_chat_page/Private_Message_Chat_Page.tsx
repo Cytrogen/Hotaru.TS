@@ -32,7 +32,7 @@ const PrivateMessageChatPage = () => {
               <PrivateMessageMessagesWrapper receiverUsername={receiverName} />
             </div>
             <div className="position-sticky bottom-0 w-100" style={{ backgroundColor: 'rgba(49, 51, 56)' }}>
-              <PrivateMessageTextBox receiverUsername={receiverName} addMessage={addMessage} />
+              <PrivateMessageTextBox receiverUsername={receiverName} />
             </div>
           </div>
           <PrivateMessageProfilePanel />

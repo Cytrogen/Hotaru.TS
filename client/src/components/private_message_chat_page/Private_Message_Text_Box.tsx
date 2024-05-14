@@ -1,13 +1,11 @@
 import React, { useState, useContext, KeyboardEvent, ChangeEvent, FormEvent } from 'react'
 import { Icon } from '@iconify/react'
 import { MessageContext } from '../context/Message_Context'
-import { Message } from '../../types/interfaces'
 import socket from '../../redux/actions/messageActions'
 import { UserService } from '../../redux/actions/serverConnection'
 
 interface PrivateMessageTextBoxProps {
   receiverUsername: string
-  addMessage: (message: Message) => void
 }
 
 const PrivateMessageTextBox: React.FC<PrivateMessageTextBoxProps> = ({ receiverUsername }) => {
