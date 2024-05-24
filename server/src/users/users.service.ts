@@ -14,7 +14,7 @@ export class UsersService {
    * @returns The user profile that matches the given email address.
    */
   async findByEmail(emailAddress: string): Promise<User | null> {
-    return this.usersModel.findOne({ emailAddress }).exec()
+    return this.usersModel.findOne({ emailAddress }).select('-password').exec()
   }
 
   /**
