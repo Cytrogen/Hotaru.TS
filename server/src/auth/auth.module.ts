@@ -9,6 +9,7 @@ import { User, UserSchema } from '../users/user.schema'
 import { UsersService } from '../users/users.service'
 import jwtConfig from '../common/config/jwt.config'
 import { AccessTokenGuard } from './guards/access-token.guard'
+import { MinIoService } from '../min-io/min-io.service'
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AccessTokenGuard } from './guards/access-token.guard'
       useClass: AccessTokenGuard,
     },
     UsersService,
+    MinIoService,
   ],
 })
 export class AuthModule {}

@@ -27,6 +27,12 @@ export class User extends Document {
 
   @Prop({ required: false })
   birthDay: string
+
+  @Prop()
+  nickname: string
+
+  @Prop()
+  avatar: string
 }
 
 // Create a schema for the User class.

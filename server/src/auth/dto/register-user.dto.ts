@@ -23,4 +23,10 @@ export class RegisterUserDto {
 
   @IsString()
   birthDay: string
+
+  @IsString()
+  nickname: string
+
+  @IsString()
+  avatar: string
 }

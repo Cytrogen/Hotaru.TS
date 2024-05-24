@@ -16,6 +16,7 @@ import { SocketModule } from './socket/socket.module'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
 import { MessagesModule } from './messages/messages.module'
+import { MinIoModule } from './min-io/min-io.module'
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { MessagesModule } from './messages/messages.module'
     UsersModule,
     AuthModule,
     MessagesModule,
+    MinIoModule,
   ],
   controllers: [AppController],
   providers: [

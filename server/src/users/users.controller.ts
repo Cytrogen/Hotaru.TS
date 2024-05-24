@@ -1,6 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common'
+import { Controller, Get, Param, Res } from '@nestjs/common'
+import { Response } from 'express'
 import { UsersService } from './users.service'
-import { Public } from '../common/decorator/public.decorator'
 
 // Define a controller for the /users route.
 @Controller('users')
@@ -20,5 +20,15 @@ export class UsersController {
   @Get('userid/:userId')
   async findByUserId(@Param('userId') userId: string) {
     return this.usersService.findByUserId(userId)
+  }
+
+  @Get(':userId/avatar')
+  async getAvatar(@Param('userId') userId: string, @Res() res: Response) {
+    const user = await this.usersService.findByUserId(userId)
+    if (user && user.avatar) {
+      return res.redirect(user.avatar)
+    } else {
+      return res.status(404).json({ message: 'User or avatar not found.' })
+    }
   }
 }

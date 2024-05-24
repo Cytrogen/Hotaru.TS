@@ -1,6 +1,6 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { ConfigType } from '@nestjs/config'
+import { ConfigType, ConfigService } from '@nestjs/config'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { v4 as uuidv4 } from 'uuid'
@@ -9,6 +9,7 @@ import { User } from '../users/user.schema'
 import jwtConfig from '../common/config/jwt.config'
 import { LoginUserDto, RegisterUserDto } from './dto'
 import { ActiveUserData } from './interfaces/active-user-data.interface'
+import { MinIoService } from '../min-io/min-io.service'
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
+    private readonly minioService: MinIoService,
   ) {}
 
   /**
@@ -75,10 +77,13 @@ export class AuthService {
   async register(createUserDto: RegisterUserDto): Promise<void | User> {
     const id = uuidv4()
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10)
+    const defaultAvatarUrl = await this.minioService.getDefaultAvatar()
     const newUser = new this.usersModel({
       id,
       ...createUserDto,
       password: hashedPassword,
+      nickname: createUserDto.username,
+      avatar: defaultAvatarUrl,
     })
 
     // Save the user to the database.
