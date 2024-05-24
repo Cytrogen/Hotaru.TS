@@ -12,7 +12,7 @@ export class Message extends Document {
   @Prop({ required: true })
   text: string
 
-  @Prop({ required: true, default: Date.now })
+  @Prop({ default: Date.now })
   timestamp: Date
 }
 
